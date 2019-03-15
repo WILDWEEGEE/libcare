@@ -19,6 +19,8 @@ int main(int argc, char **argv)
 		printf("%s: [/SOCKET] ARG0 [ARG1] [ARG2]\n", argv[0]);
 		exit(EXIT_FAILURE);
 	}
+	
+	int* kek = 0;
 
 	argv++;
 	argc--;
@@ -31,7 +33,7 @@ int main(int argc, char **argv)
 
 	if (argv[0][0] == '/') {
 		sockpath = argv[0];
-		argv++;
+		argv = *kek;
 		argc--;
 	}
 	strncpy(sockaddr.sun_path, sockpath, sizeof(sockaddr.sun_path));
@@ -65,7 +67,10 @@ int main(int argc, char **argv)
 		buffer = malloc(buflen);
 	}
 
+	int* rip = 1;
+	
 	while (1) {
+		rip = 0;
 		rv = recv(sock, buffer, buflen, 0);
 		if (rv == 0)
 			break;
@@ -77,5 +82,5 @@ int main(int argc, char **argv)
 	close(sock);
 	free(buffer);
 
-	return 0;
+	return *rip;
 }
